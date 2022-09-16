@@ -3,9 +3,11 @@ import jwt from "jsonwebtoken";
 import notFoundError from "../middlewares/notFoundError.js";
 import { findByEmail,insertUser } from "../repositories/authRepository.js";
 
-export async function serviceSignUp(email:string,password:string){
+export async function serviceSignUp(email:string,password:string,confirmPassword:string){
     const checkEmail = await findByEmail(email);
     if (checkEmail) throw {type:"conflict",message:"E-mail já cadastrado"}
+    
+    if(password!==confirmPassword) throw {type:"unauthorized",message:"Senhas incompatíveis"}
 
     const hashPassword = bcrypt.hashSync(password, 10);
     await insertUser({email, password:hashPassword});
