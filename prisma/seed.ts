@@ -11,14 +11,6 @@ async function main() {
             create: terms
         });
     }
-    const categories=["Projeto,Prática,Recuperação"]
-    categories.forEach(async e=>{
-      await prisma.category.upsert({
-        where: { name: e },
-        update: {},
-        create: {name:e}
-      });
-    })
     await prisma.teacher.upsert({
       where: { name: 'Diego Pinho'},
       update: {},
