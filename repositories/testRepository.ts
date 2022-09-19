@@ -31,6 +31,15 @@ export async function getIdByNames(teacher:string,discipline:string) {
  return teachersDisciplines.id
 }
 
+export async function getAllUsers(){
+    const users=await prisma.user.findMany({
+        select:{
+            email:true,
+        }
+    })
+    return users
+}
+
 export async function insertTest(createTest:CreateTestsData) {
     await prisma.test.create({
         data:createTest

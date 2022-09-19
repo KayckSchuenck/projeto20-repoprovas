@@ -2,9 +2,10 @@ import { Request,Response } from "express";
 import {serviceCreateTest,serviceGetTestsByDiscipline,serviceGetTestsByTeacher} from "../services/testService.js";
 
 export async function createTest(req:Request, res:Response) {
-    const {name,discipline,teacher,link,category}=req.body
-    await serviceCreateTest(name,discipline,teacher,link,category)
-    
+    const {name,discipline,teacher,category}=req.body
+    const pdf=req.file
+    await serviceCreateTest(name,discipline,teacher,pdf,category)
+    console.log(pdf)
     res.sendStatus(201)
 }
 
