@@ -1,5 +1,5 @@
 import { Request,Response } from "express";
-import { serviceLogin,serviceSignUp } from "../services/authService.js";
+import { serviceLogin,serviceSignUp } from "../services/authService";
 
 export async function signUp(req:Request, res:Response) {
     const {  email, password, confirmPassword } = req.body;

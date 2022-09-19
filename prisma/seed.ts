@@ -1,4 +1,4 @@
-import prisma  from '../database.js';
+import prisma  from '../database';
 
 async function main() {
     for(let i=0;i<6;i++){

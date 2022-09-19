@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken";
-import notFoundError from "../middlewares/notFoundError.js";
-import { findByEmail,insertUser } from "../repositories/authRepository.js";
+import notFoundError from "../middlewares/notFoundError";
+import { findByEmail,insertUser } from "../repositories/authRepository";
 
 export async function serviceSignUp(email:string,password:string,confirmPassword:string){
     const checkEmail = await findByEmail(email);

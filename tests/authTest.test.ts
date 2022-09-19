@@ -2,7 +2,7 @@ import app from '../index';
 import supertest from 'supertest';
 import { createSignUpBodyFactory } from '../factories/authFactory'
 
-describe("POST /signup", async () => {
+describe("POST /signup", () => {
     it("given a valid email and password it should return 201", async () => {
         const body = await createSignUpBodyFactory()
 
@@ -24,14 +24,14 @@ describe("POST /signup", async () => {
         const body = await createSignUpBodyFactory()
         const testBody={...body, confirmPassword:"TestingPassword"}
 
-        const result = await supertest(app).post("/signup").send(body);
+        const result = await supertest(app).post("/signup").send(testBody);
         const status = result.status;
         
         expect(status).toEqual(401);
     });
 });
 
-describe("POST /login", async () => {
+describe("POST /login", () => {
     it("given an existing email and password it should return 200", async () => {
         const body = await createSignUpBodyFactory()
         await supertest(app).post("/signup").send(body);

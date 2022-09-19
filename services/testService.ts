@@ -1,7 +1,7 @@
 import sgMail from '@sendgrid/mail'
 import { createClient } from '@supabase/supabase-js'
-import {insertTest,getCategoryIdByName,getIdByNames,getTestsByDiscipline,getTestsByTeacher,getAllUsers} from '../repositories/testRepository.js'
-import notFoundError from '../middlewares/notFoundError.js'
+import {insertTest,getCategoryIdByName,getIdByNames,getTestsByDiscipline,getTestsByTeacher,getAllUsers} from '../repositories/testRepository'
+import notFoundError from '../middlewares/notFoundError'
 import { faker } from '@faker-js/faker'
 
 const supabase = createClient(
@@ -27,25 +27,26 @@ async function sendEmail(data:string){
     }
 }
 
-async function storagePdf(pdf:Express.Multer.File){
-    const number=faker.datatype.number()
-    // await supabase.storage
-    // .from('tests')
-    // .upload(`links/test${number}.pdf`, pdf)
-    const { publicURL, error } = await supabase.storage
-    .from('tests')
-    .getPublicUrl(`links/test${number}.pdf`)
+// async function storagePdf(pdf:Express.Multer.File){
+//     const number=faker.datatype.number()
+//     await supabase.storage
+//     .from('tests')
+//     .upload(`links/test${number}.pdf`, pdf)
+//     const { publicURL, error } = await supabase.storage
+//     .from('tests')
+//     .getPublicUrl(`links/test${number}.pdf`)
 
-    return publicURL
-}
+//     return publicURL
+// }
 
-export async function serviceCreateTest(name:string,discipline:string,teacher:string,pdf:Express.Multer.File,category:string){
+export async function serviceCreateTest(name:string,discipline:string,teacher:string,pdf,category:string){
     const categoryId:number=await getCategoryIdByName(category)
     if(!categoryId) notFoundError('categoria')
 
     const teacherDisciplineId:number=await getIdByNames(teacher,discipline)
     if(!teacherDisciplineId) notFoundError('disciplina ou professor')
-    const link= await storagePdf(pdf)
+    // const link= await storagePdf(pdf)
+    const link=pdf
 
     await insertTest({name,pdfUrl:link,categoryId,teacherDisciplineId})
 

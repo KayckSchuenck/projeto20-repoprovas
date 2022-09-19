@@ -1,11 +1,11 @@
 import { Request,Response } from "express";
-import {serviceCreateTest,serviceGetTestsByDiscipline,serviceGetTestsByTeacher} from "../services/testService.js";
+import {serviceCreateTest,serviceGetTestsByDiscipline,serviceGetTestsByTeacher} from "../services/testService";
 
 export async function createTest(req:Request, res:Response) {
     const {name,discipline,teacher,category}=req.body
-    const pdf=req.file
+    // const pdf=req.file
+    const {link:pdf}=req.body
     await serviceCreateTest(name,discipline,teacher,pdf,category)
-    console.log(pdf)
     res.sendStatus(201)
 }
 

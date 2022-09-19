@@ -1,8 +1,8 @@
-import prisma from "../database.js";
-import {CreateTestsData} from '../types/types.js'
+import prisma from "../database";
+import {CreateTestsData} from '../types/types'
 
 export async function getCategoryIdByName(name:string){
-    const {id}=await prisma.category.findUnique({
+    const category=await prisma.category.findUnique({
         where:{
             name
         },
@@ -10,25 +10,30 @@ export async function getCategoryIdByName(name:string){
             id:true
         }
     })
-    return id
+    if(category.id) return category.id
+    else return undefined
 }
 
 export async function getIdByNames(teacher:string,discipline:string) {
 
- const {id:teacherId}=await prisma.teacher.findUnique({
+ const teacherId=await prisma.teacher.findUnique({
     where:{name:teacher}
  })
- const {id:disciplineId}=await prisma.discipline.findUnique({
+ const disciplineId=await prisma.discipline.findUnique({
     where:{name:discipline}
  })
- 
+
+ if(!disciplineId.id||!teacherId.id) return undefined
+
  const teachersDisciplines=await prisma.teacherDiscipline.findFirst({
      where:{
-         teacherId:teacherId,
-         disciplineId:disciplineId
+         teacherId:teacherId.id,
+         disciplineId:disciplineId.id
      }
  })
- return teachersDisciplines.id
+
+ if(teachersDisciplines.id) return teachersDisciplines.id
+ else return undefined
 }
 
 export async function getAllUsers(){
