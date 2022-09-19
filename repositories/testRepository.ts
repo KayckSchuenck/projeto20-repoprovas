@@ -10,7 +10,7 @@ export async function getCategoryIdByName(name:string){
             id:true
         }
     })
-    if(category.id) return category.id
+    if(category) return category.id
     else return undefined
 }
 
@@ -23,7 +23,7 @@ export async function getIdByNames(teacher:string,discipline:string) {
     where:{name:discipline}
  })
 
- if(!disciplineId.id||!teacherId.id) return undefined
+ if(!disciplineId||!teacherId) return undefined
 
  const teachersDisciplines=await prisma.teacherDiscipline.findFirst({
      where:{
@@ -32,7 +32,7 @@ export async function getIdByNames(teacher:string,discipline:string) {
      }
  })
 
- if(teachersDisciplines.id) return teachersDisciplines.id
+ if(teachersDisciplines) return teachersDisciplines.id
  else return undefined
 }
 
