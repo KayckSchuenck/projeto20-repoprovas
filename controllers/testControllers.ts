@@ -1,5 +1,5 @@
 import { Request,Response } from "express";
-import {serviceCreateTest,serviceGetTestsByDiscipline,serviceGetTestsByTeacher} from "../services/testService";
+import {serviceCreateTest,serviceGetTestsByDiscipline,serviceGetTestsByTeacher} from "../services/testService.js";
 
 export async function createTest(req:Request, res:Response) {
     const {name,discipline,teacher,category}=req.body

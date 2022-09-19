@@ -1,8 +1,7 @@
 import sgMail from '@sendgrid/mail'
 import { createClient } from '@supabase/supabase-js'
-import {insertTest,getCategoryIdByName,getIdByNames,getTestsByDiscipline,getTestsByTeacher,getAllUsers} from '../repositories/testRepository'
-import notFoundError from '../middlewares/notFoundError'
-import { faker } from '@faker-js/faker'
+import {insertTest,getCategoryIdByName,getIdByNames,getTestsByDiscipline,getTestsByTeacher,getAllUsers} from '../repositories/testRepository.js'
+import notFoundError from '../middlewares/notFoundError.js'
 
 const supabase = createClient(
   'https://mouyviysfrdgaxvriwzz.supabase.co',
@@ -28,10 +27,11 @@ async function sendEmail(data:string){
 }
 
 // async function storagePdf(pdf:Express.Multer.File){
-//     const number=faker.datatype.number()
 //     await supabase.storage
 //     .from('tests')
-//     .upload(`links/test${number}.pdf`, pdf)
+//     .upload(`links/test${number}.pdf`, pdf,{
+//     upsert:true
+// })
 //     const { publicURL, error } = await supabase.storage
 //     .from('tests')
 //     .getPublicUrl(`links/test${number}.pdf`)

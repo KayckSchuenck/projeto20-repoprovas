@@ -1,6 +1,6 @@
 import {faker} from '@faker-js/faker'
 import supertest from 'supertest';
-import app from '../index';
+import app from '../index.js';
 import { createSignUpBodyFactory } from './authFactory';
 
 export async function createPostTestBodyFactory(){

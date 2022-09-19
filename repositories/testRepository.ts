@@ -1,5 +1,5 @@
-import prisma from "../database";
-import {CreateTestsData} from '../types/types'
+import prisma from "../database.js";
+import {CreateTestsData} from '../types/types.js'
 
 export async function getCategoryIdByName(name:string){
     const category=await prisma.category.findUnique({
